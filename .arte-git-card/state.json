@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 2,
+  "toolVersion": "1.0.0",
+  "managedFiles": [
+    {
+      "path": ".arte-git-card/themes/arte-theme.yml",
+      "kind": "theme",
+      "sha256": "e3df98efbc6c894616dba9aa4b026f488be7c88068b3e5fefbc1fddf4a68db18"
+    },
+    {
+      "path": ".github/arte-git-card/codebase.svg",
+      "kind": "card",
+      "sha256": "51a830627bab801e8154569cf7e7f1c10c1430d0941814985973e06d6ed201e7"
+    },
+    {
+      "path": ".github/arte-git-card/structure.svg",
+      "kind": "card",
+      "sha256": "c7f82d6479f1f3883720dd6b8d305712d4b153bbe395173d4e29f5422ba1f777"
+    }
+  ],
+  "outputRoots": [
+    ".github/arte-git-card"
+  ]
+}

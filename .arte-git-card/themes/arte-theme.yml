@@ -1,0 +1,87 @@
+name: arte-theme
+palette:
+  surface: "#F2EFE5"
+  surface_muted: "#E9E4D8"
+  text: "#4A4742"
+  text_muted: "#777168"
+  border_muted: "#C8C1B5"
+  divider: "#D7D0C3"
+  accent: "#D77655"
+  accent_soft: "#E5A18A"
+  neutral: "#A49E94"
+  positive: "#74866D"
+  negative: "#D77655"
+  data_palette:
+    families:
+      - name: Rose
+        base: "#A86D76"
+      - name: Clay
+        base: "#AD6D5D"
+      - name: Ochre
+        base: "#A37547"
+      - name: Olive
+        base: "#8B7D47"
+      - name: Moss
+        base: "#708250"
+      - name: Sage
+        base: "#5E8D6E"
+      - name: Teal
+        base: "#4A877F"
+      - name: Petrol
+        base: "#448594"
+      - name: Slate
+        base: "#5682A7"
+      - name: Indigo
+        base: "#6E77A4"
+      - name: Plum
+        base: "#84709C"
+      - name: Wine
+        base: "#96698C"
+style:
+  card:
+    radius: 16
+    border_width: 1
+  bar:
+    radius: 2
+  heatmap:
+    radius: 3
+codebase:
+  effective: accent
+  comments: accent_soft
+  blank: neutral
+  languages:
+    color_mode: palette
+  fan:
+    color: accent
+    fill_opacity:
+      start: 0.16
+      end: 0.03
+    edge_stroke_opacity: 0
+structure:
+  tree: border_muted
+  folder:
+    fill: surface_muted
+    stroke: text_muted
+  commits:
+    colors:
+      - surface_muted
+      - accent
+      - accent
+      - accent
+      - accent
+    intensity:
+      - 1
+      - 0.22
+      - 0.42
+      - 0.66
+      - 0.92
+    border: border_muted
+  changes:
+    added: positive
+    deleted: negative
+    baseline: border_muted
+    opacity:
+      - 0.45
+      - 0.65
+      - 0.85
+      - 1
