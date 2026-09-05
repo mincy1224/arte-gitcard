@@ -1,0 +1,30 @@
+﻿name: POSIX smoke
+
+on:
+  workflow_dispatch:
+
+jobs:
+  posix-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install
+        run: npx -y pnpm@11.24.0 install --frozen-lockfile
+
+      - name: Typecheck
+        run: npx -y pnpm@11.24.0 typecheck
+
+      - name: Build
+        run: npx -y pnpm@11.24.0 build
+
+      - name: Verify dist
+        run: npx -y pnpm@11.24.0 verify-dist
+
+      - name: Test
+        run: npx -y pnpm@11.24.0 test

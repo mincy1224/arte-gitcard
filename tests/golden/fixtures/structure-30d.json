@@ -1,0 +1,1398 @@
+{
+  "days": 30,
+  "now": "2026-09-23T00:00:00.000Z",
+  "maxDepth": 3,
+  "analyzedSourceFiles": 284,
+  "files": [
+    "src/index.ts",
+    "src/components/button.ts",
+    "src/core/mod.ts",
+    "src/core/parser/ast/p.ts",
+    "src/core/parser/tokens/t.ts",
+    "src/core/parser/gen/g.ts",
+    "src/core/renderer/dom/r.ts",
+    "src/core/renderer/svg/r.ts",
+    "src/core/renderer/png/r.ts",
+    "src/core/renderer/three/r.ts",
+    "src/core/theme/light/th.ts",
+    "src/core/theme/dark/th.ts",
+    "src/core/utils/fs/u.ts",
+    "src/core/utils/str/u.ts",
+    "src/core/utils/math/u.ts",
+    "src/tests/t.ts",
+    "src/docs/guide.md"
+  ],
+  "activity": {
+    "totalCommits": 24,
+    "byDir": {
+      "src": [
+        {
+          "commits": 0,
+          "additions": 7,
+          "deletions": 4
+        },
+        {
+          "commits": 2,
+          "additions": 11,
+          "deletions": 8
+        },
+        {
+          "commits": 4,
+          "additions": 14,
+          "deletions": 12
+        },
+        {
+          "commits": 16,
+          "additions": 9,
+          "deletions": 6
+        },
+        {
+          "commits": 8,
+          "additions": 6,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "commits": 2,
+          "additions": 8,
+          "deletions": 6
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 2,
+          "additions": 8,
+          "deletions": 7
+        },
+        {
+          "commits": 10,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 5,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 2,
+          "additions": 8,
+          "deletions": 7
+        },
+        {
+          "commits": 10,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 5,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 2,
+          "additions": 8,
+          "deletions": 7
+        },
+        {
+          "commits": 10,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 5,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 7,
+          "deletions": 5
+        }
+      ],
+      "src/components": [
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 9,
+          "deletions": 5
+        },
+        {
+          "commits": 2,
+          "additions": 12,
+          "deletions": 9
+        },
+        {
+          "commits": 16,
+          "additions": 10,
+          "deletions": 7
+        },
+        {
+          "commits": 16,
+          "additions": 7,
+          "deletions": 4
+        },
+        {
+          "commits": 4,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 1,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 10,
+          "additions": 6,
+          "deletions": 4
+        },
+        {
+          "commits": 10,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 1,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 10,
+          "additions": 6,
+          "deletions": 4
+        },
+        {
+          "commits": 10,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 1,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 10,
+          "additions": 6,
+          "deletions": 4
+        },
+        {
+          "commits": 10,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 3
+        }
+      ],
+      "src/core": [
+        {
+          "commits": 0,
+          "additions": 8,
+          "deletions": 6
+        },
+        {
+          "commits": 2,
+          "additions": 6,
+          "deletions": 4
+        },
+        {
+          "commits": 4,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 8,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 0,
+          "additions": 10,
+          "deletions": 8
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 5,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 6,
+          "deletions": 5
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 5,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 6,
+          "deletions": 5
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 5,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 6,
+          "deletions": 5
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 2
+        }
+      ],
+      "src/core/parser": [
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 7,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 9,
+          "deletions": 6
+        },
+        {
+          "commits": 4,
+          "additions": 11,
+          "deletions": 9
+        },
+        {
+          "commits": 16,
+          "additions": 8,
+          "deletions": 5
+        },
+        {
+          "commits": 8,
+          "additions": 5,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 2,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 10,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 5,
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 2,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 10,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 5,
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 2,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 10,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 5,
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        }
+      ],
+      "src/core/renderer": [
+        {
+          "commits": 0,
+          "additions": 6,
+          "deletions": 4
+        },
+        {
+          "commits": 2,
+          "additions": 8,
+          "deletions": 6
+        },
+        {
+          "commits": 2,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 4,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 8,
+          "additions": 6,
+          "deletions": 4
+        },
+        {
+          "commits": 4,
+          "additions": 9,
+          "deletions": 7
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 1,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 5,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 1,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 5,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 1,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 5,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 4
+        }
+      ],
+      "src/core/theme": [
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 6,
+          "deletions": 4
+        },
+        {
+          "commits": 2,
+          "additions": 8,
+          "deletions": 5
+        },
+        {
+          "commits": 2,
+          "additions": 7,
+          "deletions": 6
+        },
+        {
+          "commits": 4,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 2,
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 4
+        },
+        {
+          "commits": 2,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 4
+        },
+        {
+          "commits": 2,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 4
+        },
+        {
+          "commits": 2,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        }
+      ],
+      "src/core/utils": [
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 2,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 0,
+          "additions": 6,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        }
+      ],
+      "src/tests": [
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 7,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 2,
+          "additions": 6,
+          "deletions": 5
+        },
+        {
+          "commits": 0,
+          "additions": 8,
+          "deletions": 6
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        }
+      ],
+      "src/docs": [
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 6,
+          "deletions": 3
+        },
+        {
+          "commits": 2,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 8,
+          "deletions": 6
+        },
+        {
+          "commits": 0,
+          "additions": 7,
+          "deletions": 5
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        },
+        {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "commits": 0,
+          "additions": 5,
+          "deletions": 4
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 3
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "commits": 0,
+          "additions": 4,
+          "deletions": 2
+        }
+      ]
+    }
+  }
+}

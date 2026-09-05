@@ -1,0 +1,3 @@
+# pnpm 11 settings (package.json's "pnpm" field is no longer read).
+allowBuilds:
+  esbuild: true

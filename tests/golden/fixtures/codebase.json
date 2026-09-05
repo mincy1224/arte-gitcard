@@ -1,0 +1,15 @@
+{
+  "totalLines": 48732,
+  "effectiveLines": 38642,
+  "commentLines": 6940,
+  "blankLines": 3150,
+  "analyzedSourceFiles": 284,
+  "languages": [
+    { "id": "typescript", "name": "TypeScript", "effective": 15147, "comments": 2810, "files": 1 },
+    { "id": "python", "name": "Python", "effective": 10859, "comments": 2040, "files": 1 },
+    { "id": "rust", "name": "Rust", "effective": 6338, "comments": 1120, "files": 1 },
+    { "id": "javascript", "name": "JavaScript", "effective": 3285, "comments": 620, "files": 1 },
+    { "id": "go", "name": "Go", "effective": 1584, "comments": 240, "files": 1 },
+    { "id": "shell", "name": "Shell", "effective": 1429, "comments": 110, "files": 1 }
+  ]
+}

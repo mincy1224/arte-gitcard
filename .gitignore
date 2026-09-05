@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+*.tgz
+*.log
+.DS_Store
+
+arte-git-card.yml
+.arte-git-card/themes/
+.github/arte-git-card/
+
+*.zip
+.zip-staging/
+
+plan.archived.md

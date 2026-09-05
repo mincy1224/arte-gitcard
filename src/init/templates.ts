@@ -1,0 +1,59 @@
+export const CONFIG_TEMPLATE = `# arte-gitcard configuration (schema-version: 2)
+schema-version: 2
+
+cards:
+  codebase:
+    enabled: true
+    languages:
+      include_comments: false
+  structure:
+    enabled: true
+    root: "."
+    max_depth: 3
+    activity_days: 7
+    commits:
+      enabled: true
+    changes:
+      enabled: true
+
+# User-editable scan exclusions: plain names (like .github or out) match exactly
+# at any depth; "*.suffix" patterns match filename endings.
+# Tool-correctness hard excludes (.git/**, arte-gitcard.yml, arte-git-card.yml,
+# .arte-git-card/**, the resolved output directory, the owned workflow) are
+# always applied by the tool and cannot be removed here.
+exclude:
+  - node_modules
+  - vendor
+  - dist
+  - build
+  - coverage
+  - .next
+  - .nuxt
+  - target
+  - out
+  - .cache
+  - .github
+  - package-lock.json
+  - yarn.lock
+  - pnpm-lock.yaml
+  - composer.lock
+  - Cargo.lock
+  - Gemfile.lock
+  - go.sum
+  - poetry.lock
+  - "*.min.js"
+  - "*.min.css"
+  - "*.map"
+  - "*.lock"
+
+# Unified theme model: points at a theme YAML under .arte-git-card/themes/.
+# Use "arte-gitcard theme install/select" to manage themes.
+theme: ".arte-git-card/themes/arte-theme.yml"
+
+output:
+  directory: ".github/arte-git-card"
+
+# GitHub auto-update is managed with "arte-gitcard github enable/disable".
+# It serves the repository default branch (GitHub is the source of truth).
+auto-update: false
+`;

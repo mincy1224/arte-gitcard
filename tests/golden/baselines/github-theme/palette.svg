@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="416" viewBox="0 0 680 416" role="img" aria-labelledby="pg-title pg-desc">
+  <title id="pg-title">arte-git-card · Theme Palette</title>
+  <desc id="pg-desc">The github-theme theme: UI colors and the 12-family data palette (lift / base / deep, OKLCH-derived).</desc>
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;fill:#1F2328;text-rendering:geometricPrecision}
+    .label{font-size:12px;font-weight:500;letter-spacing:0.08em;fill:#656D76}
+    .pname{font-size:9px;font-weight:600}
+    .phex{font-size:8px;fill:#656D76;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    .fname{font-size:10px;font-weight:700}
+  </style>
+  <rect x="0.5" y="0.5" width="679" height="415" rx="16" fill="#FFFFFF" stroke="#D0D7DE"/>
+  <text x="24" y="38" class="label">THEME PALETTE · github-theme</text>
+  <text x="24" y="52" class="label">UI PALETTE</text>
+      <g transform="translate(24 64)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#FFFFFF" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">surface</text><text x="0" y="43" class="phex">#FFFFFF</text></g>
+    <g transform="translate(116 64)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">surface_muted</text><text x="0" y="43" class="phex">#F6F8FA</text></g>
+    <g transform="translate(208 64)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#1F2328" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">text</text><text x="0" y="43" class="phex">#1F2328</text></g>
+    <g transform="translate(300 64)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#656D76" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">text_muted</text><text x="0" y="43" class="phex">#656D76</text></g>
+    <g transform="translate(392 64)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#D0D7DE" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">border_muted</text><text x="0" y="43" class="phex">#D0D7DE</text></g>
+    <g transform="translate(484 64)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#D8DEE4" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">divider</text><text x="0" y="43" class="phex">#D8DEE4</text></g>
+    <g transform="translate(576 64)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#0969DA" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">accent</text><text x="0" y="43" class="phex">#0969DA</text></g>
+    <g transform="translate(24 114)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#54AEFF" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">accent_soft</text><text x="0" y="43" class="phex">#54AEFF</text></g>
+    <g transform="translate(116 114)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#6E7781" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">neutral</text><text x="0" y="43" class="phex">#6E7781</text></g>
+    <g transform="translate(208 114)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#2DA44E" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">positive</text><text x="0" y="43" class="phex">#2DA44E</text></g>
+    <g transform="translate(300 114)"><rect x="0" y="0" width="40" height="22" rx="4" fill="#E5534B" stroke="#D0D7DE" stroke-width="0.5"/><text x="0" y="33" class="pname">negative</text><text x="0" y="43" class="phex">#E5534B</text></g>
+  <text x="24" y="184" class="label">DATA PALETTE · 12 FAMILIES / 3 TONES</text>
+      <g transform="translate(24 198)">
+      <text x="0" y="0" class="fname">Blue</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#5394DF"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#3178C6"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#1A5899"/>
+      <text x="0" y="42" class="phex">#3178C6</text>
+    </g>
+    <g transform="translate(185.5 198)">
+      <text x="0" y="0" class="fname">Yellow</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#FFF278"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#F1E05A"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#CBBC4A"/>
+      <text x="0" y="42" class="phex">#F1E05A</text>
+    </g>
+    <g transform="translate(347 198)">
+      <text x="0" y="0" class="fname">Cyan</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#4DC9F3"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#00ADD8"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#0089AE"/>
+      <text x="0" y="42" class="phex">#00ADD8</text>
+    </g>
+    <g transform="translate(508.5 198)">
+      <text x="0" y="0" class="fname">Tan</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#FAC3A3"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#DEA584"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#B58569"/>
+      <text x="0" y="42" class="phex">#DEA584</text>
+    </g>
+    <g transform="translate(24 264)">
+      <text x="0" y="0" class="fname">Brown</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#CB8F45"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#B07219"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#885400"/>
+      <text x="0" y="42" class="phex">#B07219</text>
+    </g>
+    <g transform="translate(185.5 264)">
+      <text x="0" y="0" class="fname">Pink</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#FF7099"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#F34B7D"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#C23360"/>
+      <text x="0" y="42" class="phex">#F34B7D</text>
+    </g>
+    <g transform="translate(347 264)">
+      <text x="0" y="0" class="fname">Green</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#43A137"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#178600"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#006300"/>
+      <text x="0" y="42" class="phex">#178600</text>
+    </g>
+    <g transform="translate(508.5 264)">
+      <text x="0" y="0" class="fname">Maroon</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#8A3531"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#701516"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#490001"/>
+      <text x="0" y="42" class="phex">#701516</text>
+    </g>
+    <g transform="translate(24 330)">
+      <text x="0" y="0" class="fname">Vermilion</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#FF755B"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#F05138"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#BF3823"/>
+      <text x="0" y="42" class="phex">#F05138</text>
+    </g>
+    <g transform="translate(185.5 330)">
+      <text x="0" y="0" class="fname">Violet</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#C49AFF"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#A97BFF"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#865ECE"/>
+      <text x="0" y="42" class="phex">#A97BFF</text>
+    </g>
+    <g transform="translate(347 330)">
+      <text x="0" y="0" class="fname">Indigo</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#6F5795"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#563D7C"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#382256"/>
+      <text x="0" y="42" class="phex">#563D7C</text>
+    </g>
+    <g transform="translate(508.5 330)">
+      <text x="0" y="0" class="fname">Teal</text>
+      <rect x="0" y="10" width="20" height="20" rx="4" fill="#51666D"/>
+      <rect x="24" y="10" width="20" height="20" rx="4" fill="#384D54"/>
+      <rect x="48" y="10" width="20" height="20" rx="4" fill="#1E3035"/>
+      <text x="0" y="42" class="phex">#384D54</text>
+    </g>
+</svg>

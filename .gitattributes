@@ -1,0 +1,5 @@
+* text=auto
+*.svg text eol=lf
+*.snap text eol=lf
+*.html text eol=lf
+*.md text eol=lf

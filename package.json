@@ -1,0 +1,42 @@
+{
+  "name": "arte-gitcard",
+  "version": "1.0.0",
+  "description": "Native SVG repository cards (Codebase + Structure) for GitHub READMEs.",
+  "private": true,
+  "packageManager": "pnpm@11.24.0",
+  "license": "GPL-3.0-only",
+  "bin": {
+    "arte-gitcard": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup && tsup --config tsup.ci.config.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "verify-dist": "node scripts/verify-dist.cjs",
+    "pack": "npm pack",
+    "prepack": "npm run build && npm run verify-dist",
+    "golden:update": "npm run build && node tests/golden/gen-goldens.mjs",
+    "dev:new-display": "node scripts/dev-new-display.mjs",
+    "release-local": "npm run typecheck && npm run test && npm run build && npm run verify-dist && npm pack"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "commander": "^12.1.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "yaml": "^2.5.0",
+    "zod": "^3.23.8"
+  }
+}
