@@ -8,4 +8,5 @@ coverage/
 *.zip
 .zip-staging/
 
-plan.archived.md
+.arte-git-card/.lock
+.arte-git-card/txn.json
