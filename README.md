@@ -570,6 +570,88 @@ git push
 
 From then on, whenever the default branch is updated, the workflow regenerates the enabled Cards and writes a bot commit when the content has changed.
 
+### IMPORTANT SAFETY WARNING
+This section applies only after `arte-gitcard github enable` has enabled GitHub auto-update.
+
+When GitHub auto-update is enabled, the GitHub Action may write generated cards and arte-gitcard-managed state back to the repository's default branch after a push.
+
+You do not need to pull before every commit or push. This precaution is only needed before running local arte-gitcard commands that may modify files also managed by the GitHub auto-update workflow.
+
+Before running one of the commands below, first make sure your local branch is up to date:
+
+```bash
+git pull --rebase
+```
+
+You may use your existing Git pull/merge strategy instead. The important requirement is that the local repository is synchronized with the latest remote state before the arte-gitcard mutation is performed.
+
+This applies to commands including:
+
+```text
+arte-gitcard generate [--preview]
+
+arte-gitcard add [card]
+arte-gitcard add --all
+
+arte-gitcard remove [card]
+arte-gitcard remove --all
+
+arte-gitcard theme install <theme>
+arte-gitcard theme select <theme>
+arte-gitcard theme remove <theme>
+
+arte-gitcard config set output.directory <path>
+arte-gitcard config reset output.directory
+
+arte-gitcard structure describe ...
+arte-gitcard structure remove ...
+
+arte-gitcard github sync
+arte-gitcard github disable
+
+# Also applies when re-running enable on an already-enabled repository:
+arte-gitcard github enable
+
+arte-gitcard reset
+arte-gitcard uninstall
+```
+
+These commands can modify generated cards, arte-gitcard state, structure metadata, GitHub integration files, or other files that may also be updated by the auto-update workflow.
+
+Read-only commands such as `status`, `doctor`, `validate`, `snippet`, and `list`/`get`/`show` commands do not require this additional synchronization step.
+
+Likewise, ordinary source-code development does not require any arte-gitcard-specific synchronization beyond your normal Git workflow.
+
+#### If a conflict has already occurred
+
+Do not manually merge generated SVG files, and do not arbitrarily choose one side of `.arte-git-card/state.json`.
+
+Generated cards are derived artifacts and should be regenerated from the final repository state rather than merged by hand.
+
+A safe recovery flow is:
+
+```bash
+# 1. Abort the current integration if necessary.
+git merge --abort
+# or:
+git rebase --abort
+
+# 2. Preserve unrelated local work if needed.
+git stash
+
+# 3. Synchronize with the latest remote state.
+git pull --rebase
+
+# 4. Restore unrelated local work if it was stashed.
+git stash pop
+
+# 5. Re-run the arte-gitcard command that caused the local generated changes.
+arte-gitcard <command>
+```
+
+If the conflict happened specifically in generated card files or arte-gitcard-managed state, prefer returning to a clean, up-to-date repository and re-running the original arte-gitcard operation instead of resolving those generated files manually.
+
+
 ### GitHub commands
 
 | Command | Purpose |
