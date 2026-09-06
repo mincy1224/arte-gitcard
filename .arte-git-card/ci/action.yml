@@ -1,0 +1,5 @@
+name: arte-gitcard auto-update
+description: Regenerate arte-gitcard cards and push owned artifacts.
+runs:
+  using: node24
+  main: main.cjs
