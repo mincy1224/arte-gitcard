@@ -8,7 +8,7 @@ When you come across an unfamiliar project, you usually don't start reading the 
 
 ### Codebase
 
-<p style="text-align: center;">
+<p align="center">
   <img src=".github/arte-git-card/codebase.svg" alt="Codebase Card">
 </p>
 
@@ -16,7 +16,7 @@ The Codebase card splits the repository's code into `Effective`, `Comments`, and
 
 ### Structure
 
-<p style="text-align: center;">
+<p align="center">
   <img src=".github/arte-git-card/structure.svg" alt="Structure Card">
 </p>
 
