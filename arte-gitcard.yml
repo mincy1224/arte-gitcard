@@ -37,7 +37,7 @@ exclude:
   - "*.min.css"
   - "*.map"
   - "*.lock"
-theme: .arte-git-card/themes/arte-theme.yml
+theme: .arte-git-card/themes/github-theme.yml
 output:
   directory: .github/arte-git-card
 auto-update: true

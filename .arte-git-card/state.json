@@ -18,14 +18,19 @@
       "sha256": "e3df98efbc6c894616dba9aa4b026f488be7c88068b3e5fefbc1fddf4a68db18"
     },
     {
+      "path": ".arte-git-card/themes/github-theme.yml",
+      "kind": "theme",
+      "sha256": "95f9a9659ee6e42d23baf44f16e03b3bf18217bc2ae6f03e8605d90f330f8ac4"
+    },
+    {
       "path": ".github/arte-git-card/codebase.svg",
       "kind": "card",
-      "sha256": "2e160124679599f1f6ac51a75f05ed6c59586de1ac003aaeff0f16e530a07714"
+      "sha256": "6668a843ea309821bd47b7cf21535a840f4d08c1bdf4ad6e49b26fcf7e05fbd9"
     },
     {
       "path": ".github/arte-git-card/structure.svg",
       "kind": "card",
-      "sha256": "f89dca529d169221929e1a8df2e676b53fff32dbcc420f48af465973362fa7d1"
+      "sha256": "8d34a8371090d33c6356f8ea966160f0ca00195bed53acc3101e86b39be0cf4b"
     },
     {
       "path": ".github/workflows/arte-gitcard.yml",
