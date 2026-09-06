@@ -20,12 +20,12 @@
     {
       "path": ".github/arte-git-card/codebase.svg",
       "kind": "card",
-      "sha256": "a8a5f42c64e5f74b111e6d5a8a2dd19c9ccd7dc572b92dc8783b43411bd5858f"
+      "sha256": "37bac5be27083b849cf519f28822883efb38baaf4de3eacca28b1accba3ec111"
     },
     {
       "path": ".github/arte-git-card/structure.svg",
       "kind": "card",
-      "sha256": "f89dca529d169221929e1a8df2e676b53fff32dbcc420f48af465973362fa7d1"
+      "sha256": "6a5fdec21b3a0e115b2793c0a5447ba07435e6fd37f5385fb78ec7e654779626"
     },
     {
       "path": ".github/workflows/arte-gitcard.yml",
