@@ -29,6 +29,8 @@ The Structure card renders the repository tree from a configurable directory roo
 - commit activity within the given time window
 - file additions and deletions
 
+Commit activity is colored with **GitHub-inspired robust quartile scaling** over that window: zero-commit cells stay neutral, and the active cells are binned by the quartiles of the window's positive per-directory activity (rare outlier days are excluded from the calibration). This keeps relative intensity readable whether the window is quiet or very busy. It is inspired by GitHub's contribution graph, not a full replication — GitHub has not published its complete outlier treatment, so the exact fence and quantile method here is this project's own.
+
 Structure presents the repository layout itself; architectural relationships, protocol boundaries, and module responsibilities can still be described separately in the README whenever a project needs to.
 
 ### Developer reference
