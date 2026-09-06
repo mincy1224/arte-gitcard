@@ -25,7 +25,15 @@ import {
 } from "../../src/layout/languages.js";
 import { buildTree } from "../../src/structure/tree.js";
 import { buildStructureData } from "../../src/structure/model.js";
-import { layoutStructure, DESC_FONT } from "../../src/layout/structure.js";
+import {
+  layoutStructure,
+  DESC_FONT,
+  META_GUTTER,
+  NAME_TEXT_OFFSET,
+  ROW_FONT_WEIGHT,
+  ROOT_FONT_WEIGHT,
+  TREE_FONT,
+} from "../../src/layout/structure.js";
 import { buildCommitScale, levelOf, commitScaleLegendText } from "../../src/structure/commit-scale.js";
 import type { CommitScale } from "../../src/structure/commit-scale.js";
 import { estimateTextWidth } from "../../src/layout/measure.js";
@@ -190,11 +198,14 @@ describe("structure tree counts (direct dirs · direct files)", () => {
       expect(r.sep1XLocal + r.iconLeft).toBeCloseTo(layout.countAnchors.sep1, 3);
     }
 
-    // description never reaches the dirs metadata slot
+    // description clears the dirs metadata slot by at least the META_GUTTER
+    // (checked against dirsSlotLeft, the region start — dirsNumRight is too far
+    // right to catch content overlapping the gutter/slot).
     const idx = data.rows.indexOf(src);
     const row = layout.rows[idx]!;
     const descW = estimateTextWidth(src.description!, { fontSize: DESC_FONT, mono: false });
-    expect(row.iconLeft + row.descXLocal! + descW).toBeLessThanOrEqual(layout.countAnchors.dirsNumRight);
+    const descEndGlobal = row.iconLeft + row.descXLocal! + descW;
+    expect(layout.countAnchors.dirsSlotLeft - descEndGlobal).toBeGreaterThanOrEqual(META_GUTTER - 0.01);
 
     const svg = renderStructureCard(layout, theme, 4);
     expect(svg).toContain("核心源码目录");
@@ -357,6 +368,47 @@ describe("row metadata alignment (dirs · files · share)", () => {
     expect(svg).toContain("0%");
     expect(codeShareOf(new Map([["src", { effective: 0, comments: 0, blank: 99 }]]), "src", true)).toBe(0);
     expect(shareLabel(0)).toBe("0%");
+  });
+
+  it("a long repo-root name (35–50 chars, .root weight) keeps META_GUTTER from the dirs·files·share region", () => {
+    const root = "awesome-monorepo-kitchen-sink-patterns-toolkit-v2";
+    expect(root.length).toBeGreaterThanOrEqual(35);
+    expect(root.length).toBeLessThanOrEqual(50);
+    const data = structureData(["docs/x.md", "lib/y.ts", "src/z.ts"], 7, root);
+    const rootRow = data.rows[0]!;
+    expect(rootRow.depth).toBe(0);
+    rootRow.dirs = 3;
+    rootRow.files = 1;
+    rootRow.codeShare = 1; // the metadata row's "100%"
+    // Keep every descendant short and shallow so the LONG ROOT, not a deep name,
+    // is what sizes the metadata region (this is the overlap the bug produced).
+    for (const r of data.rows.slice(1)) r.codeShare = 0.25;
+
+    const layout = layoutStructure(data, { commits: true, changes: true });
+    const svg = renderStructureCard(layout, theme, 4);
+    // dirs/files/share really are rendered beside the long root name.
+    expect(svg).toContain("100%");
+    expect(svg).toContain("dirs");
+    expect(svg).toContain("file");
+
+    // Every row's rightmost directory text — mirrored from the renderer CSS
+    // (.row/.root weight) — must clear dirsSlotLeft by >= META_GUTTER. Before the
+    // fix the root name was measured at regular weight, so its 650-weight glyphs
+    // ran under the dirs·files·share columns.
+    for (const row of layout.rows) {
+      const weight = row.row.depth === 0 ? ROOT_FONT_WEIGHT : ROW_FONT_WEIGHT;
+      const nameEndGlobal =
+        row.iconLeft + NAME_TEXT_OFFSET + estimateTextWidth(row.row.name, { fontSize: TREE_FONT, mono: false, fontWeight: weight });
+      expect(layout.countAnchors.dirsSlotLeft - nameEndGlobal).toBeGreaterThanOrEqual(META_GUTTER - 0.01);
+    }
+
+    // The long root name is the binding constraint: its text right edge sits
+    // exactly one META_GUTTER before dirsSlotLeft (nothing is wider to its right).
+    const rootEndGlobal =
+      layout.rows[0]!.iconLeft +
+      NAME_TEXT_OFFSET +
+      estimateTextWidth(root, { fontSize: TREE_FONT, mono: false, fontWeight: ROOT_FONT_WEIGHT });
+    expect(layout.countAnchors.dirsSlotLeft - META_GUTTER).toBeCloseTo(rootEndGlobal, 3);
   });
 });
 

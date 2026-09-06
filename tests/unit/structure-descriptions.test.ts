@@ -19,7 +19,7 @@ import { buildTree } from "../../src/structure/tree.js";
 import { buildStructureData } from "../../src/structure/model.js";
 import type { StructureData, StructureRow } from "../../src/structure/model.js";
 import { attachStructureDescriptions } from "../../src/display/builtin/structure/presenter.js";
-import { layoutStructure, DESC_FONT, DESC_GAP, COUNT_FONT } from "../../src/layout/structure.js";
+import { layoutStructure, DESC_FONT, META_GUTTER, COUNT_FONT } from "../../src/layout/structure.js";
 import { estimateTextWidth } from "../../src/layout/measure.js";
 import { renderStructureCard } from "../../src/structure/render.js";
 import type { ActivityDay } from "../../src/structure/activity.js";
@@ -157,10 +157,10 @@ describe("layout: descriptions widen the tree/card without overlap or height cha
     for (const row of b.rows) {
       expect(row.descXLocal).toBeDefined();
       const descW = estimateTextWidth(row.row.description!, { fontSize: DESC_FONT, mono: false });
-      // The dirs phrase slot begins after the longest description; each row's own
-      // description never reaches it (>= DESC_GAP breathing room).
+      // The metadata region begins META_GUTTER after the longest directory
+      // content; each row's own description never reaches it (layout invariant).
       const descEndGlobal = row.iconLeft + row.descXLocal! + descW;
-      expect(b.countAnchors.dirsSlotLeft - descEndGlobal).toBeGreaterThanOrEqual(DESC_GAP - 0.01);
+      expect(b.countAnchors.dirsSlotLeft - descEndGlobal).toBeGreaterThanOrEqual(META_GUTTER - 0.01);
     }
   });
 });
