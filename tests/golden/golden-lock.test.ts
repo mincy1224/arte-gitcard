@@ -33,19 +33,23 @@ const LOCKED: Array<[string, number]> = [
   // font-weight (.row 550 / .root 650) and the dirs·files·share region starts one
   // semantic META_GUTTER after the rightmost directory content, so long repo/
   // directory names never overlap the columns. Card widths grew a few px.
+  // Commit-scale pass: the commit heatmap switched to GitHub-inspired robust
+  // quartile scaling (Tukey upper-fence outlier exclusion, then Q1/Q2/Q3 bins);
+  // the legend shows the real quartile cutoffs, so cells/legend and heat shades
+  // all changed.
   ["tests/golden/baselines/arte/codebase-golden.svg", 0x2e10eb40],
   ["tests/golden/baselines/arte/codebase-golden-comments.svg", 0x58cbecda],
   ["tests/golden/baselines/arte/codebase-golden-wide.svg", 0x86ebea04],
-  ["tests/golden/baselines/arte/structure-7d.svg", 0x261da92e],
-  ["tests/golden/baselines/arte/structure-14d.svg", 0x080ae320],
-  ["tests/golden/baselines/arte/structure-30d.svg", 0x28638a1c],
+  ["tests/golden/baselines/arte/structure-7d.svg", 0x80bf9b61],
+  ["tests/golden/baselines/arte/structure-14d.svg", 0x581d0984],
+  ["tests/golden/baselines/arte/structure-30d.svg", 0x64302404],
   ["tests/golden/baselines/arte/palette-golden.svg", 0x11320941],
   ["tests/golden/baselines/github-theme/codebase.svg", 0x9b03dfc9],
   ["tests/golden/baselines/github-theme/codebase-comments.svg", 0xbc18261b],
   ["tests/golden/baselines/github-theme/codebase-wide.svg", 0xd47055fb],
-  ["tests/golden/baselines/github-theme/structure-7d.svg", 0x7e2a4872],
-  ["tests/golden/baselines/github-theme/structure-14d.svg", 0x6c5cdb95],
-  ["tests/golden/baselines/github-theme/structure-30d.svg", 0x4eb7b405],
+  ["tests/golden/baselines/github-theme/structure-7d.svg", 0x6ac9f68f],
+  ["tests/golden/baselines/github-theme/structure-14d.svg", 0xd01881ab],
+  ["tests/golden/baselines/github-theme/structure-30d.svg", 0xa690834f],
   ["tests/golden/baselines/github-theme/palette.svg", 0x8efb90e5],
 ];
 
