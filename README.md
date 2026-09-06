@@ -8,13 +8,17 @@ When you come across an unfamiliar project, you usually don't start reading the 
 
 ### Codebase
 
-![Codebase](.github/arte-git-card/codebase.svg)
+<p style="text-align: center;">
+  <img src=".github/arte-git-card/codebase.svg" alt="Codebase Card">
+</p>
 
 The Codebase card splits the repository's code into `Effective`, `Comments`, and `Blank`, and reports how much each language contributes to the counted source code. Language detection supports both built-in rules and your own custom rules. `codebase.include-comments` decides whether comment lines count toward the language shares; the total-line breakdown at the top always shows effective code, comments, and blank lines separately.
 
 ### Structure
 
-![Structure](.github/arte-git-card/structure.svg)
+<p style="text-align: center;">
+  <img src=".github/arte-git-card/structure.svg" alt="Structure Card">
+</p>
 
 The Structure card renders the repository tree from a configurable directory root. Each row can show:
 
