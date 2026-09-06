@@ -8,10 +8,10 @@
   </style>
   <rect x="0.5" y="0.5" width="679" height="211" rx="16" stroke-width="1" fill="#F2EFE5" stroke="#C8C1B5"/>
   <g>
-    <g transform="translate(61.6 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#4A4742"/><text x="27" y="-4.5" class="name">Total</text><text x="0" y="12.5" class="data">32,613</text></g>
-    <g transform="translate(208.8 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#D77655"/><text x="27" y="-4.5" class="name">Effective</text><text x="0" y="12.5" class="data">26,246 · 80.5%</text></g>
+    <g transform="translate(61.6 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#4A4742"/><text x="27" y="-4.5" class="name">Total</text><text x="0" y="12.5" class="data">32,615</text></g>
+    <g transform="translate(208.8 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#D77655"/><text x="27" y="-4.5" class="name">Effective</text><text x="0" y="12.5" class="data">26,247 · 80.5%</text></g>
     <g transform="translate(356 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#E5A18A"/><text x="27" y="-4.5" class="name">Comments</text><text x="0" y="12.5" class="data">3,631 · 11.1%</text></g>
-    <g transform="translate(503.2 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#A49E94"/><text x="27" y="-4.5" class="name">Blank</text><text x="0" y="12.5" class="data">2,736 · 8.4%</text></g>
+    <g transform="translate(503.2 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#A49E94"/><text x="27" y="-4.5" class="name">Blank</text><text x="0" y="12.5" class="data">2,737 · 8.4%</text></g>
   </g>
   <rect x="87.2" y="59" width="505.6" height="4" rx="2" fill="#D7D0C3"/><path d="M89.2 59H494.1V63H89.2A2 2 0 0 1 87.2 61A2 2 0 0 1 89.2 59Z" fill="#D77655"/><rect x="494.1" y="59" width="56.3" height="4" fill="#E5A18A"/><path d="M550.4 59H590.8A2 2 0 0 1 592.8 61A2 2 0 0 1 590.8 63H550.4Z" fill="#A49E94"/>
   <defs>
@@ -39,7 +39,7 @@
       <g>
       <rect x="356" y="124.2" width="19" height="4" rx="2" fill="#8B7D47"/>
       <text x="383" y="130" class="name">Other</text>
-      <text x="356" y="147" class="data">568 · 2.2%</text>
+      <text x="356" y="147" class="data">569 · 2.2%</text>
     </g>
       <g>
       <rect x="503.2" y="124.2" width="19" height="4" rx="2" fill="#6E77A4"/>
