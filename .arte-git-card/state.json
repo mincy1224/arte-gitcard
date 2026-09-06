@@ -25,7 +25,7 @@
     {
       "path": ".github/arte-git-card/structure.svg",
       "kind": "card",
-      "sha256": "256b0e937f21d44e338fe24fdd26f2baa79a70c8132fff1ca5a3f527b01cc6f5"
+      "sha256": "9961e5dff483f40876569c426e89271ec7a35b29bfa3f0645f44b363ab38c432"
     },
     {
       "path": ".github/workflows/arte-gitcard.yml",
