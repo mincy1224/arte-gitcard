@@ -3,3 +3,5 @@
 *.snap text eol=lf
 *.html text eol=lf
 *.md text eol=lf
+
+* linguist-vendored
