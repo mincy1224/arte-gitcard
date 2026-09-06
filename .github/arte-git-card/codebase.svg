@@ -8,8 +8,8 @@
   </style>
   <rect x="0.5" y="0.5" width="679" height="211" rx="16" stroke-width="1" fill="#F2EFE5" stroke="#C8C1B5"/>
   <g>
-    <g transform="translate(61.6 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#4A4742"/><text x="27" y="-4.5" class="name">Total</text><text x="0" y="12.5" class="data">32,608</text></g>
-    <g transform="translate(208.8 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#D77655"/><text x="27" y="-4.5" class="name">Effective</text><text x="0" y="12.5" class="data">26,241 · 80.5%</text></g>
+    <g transform="translate(61.6 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#4A4742"/><text x="27" y="-4.5" class="name">Total</text><text x="0" y="12.5" class="data">32,612</text></g>
+    <g transform="translate(208.8 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#D77655"/><text x="27" y="-4.5" class="name">Effective</text><text x="0" y="12.5" class="data">26,245 · 80.5%</text></g>
     <g transform="translate(356 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#E5A18A"/><text x="27" y="-4.5" class="name">Comments</text><text x="0" y="12.5" class="data">3,631 · 11.1%</text></g>
     <g transform="translate(503.2 32)"><rect x="0" y="-10.3" width="19" height="4" rx="2" fill="#A49E94"/><text x="27" y="-4.5" class="name">Blank</text><text x="0" y="12.5" class="data">2,736 · 8.4%</text></g>
   </g>
@@ -24,7 +24,7 @@
     <path d="M494.1 63L656 97" fill="none" stroke="url(#fanStrokeR)" stroke-width="1" stroke-linecap="round"/>
   <rect x="24" y="97" width="632" height="4" rx="2" fill="#D7D0C3"/>
   <defs><clipPath id="agcLangBarClip"><rect x="24" y="97" width="632" height="4" rx="2"/></clipPath></defs>
-  <g clip-path="url(#agcLangBarClip)"><rect x="24" y="97" width="538" height="4" fill="#A86D76"/><rect x="562" y="97" width="60.6" height="4" fill="#4A877F"/><rect x="622.6" y="97" width="13.7" height="4" fill="#8B7D47"/><rect x="636.3" y="97" width="13.4" height="4" fill="#6E77A4"/><rect x="649.7" y="97" width="6.3" height="4" fill="#AD6D5D"/><rect x="656" y="97" width="0" height="4" fill="#5E8D6E"/></g>
+  <g clip-path="url(#agcLangBarClip)"><rect x="24" y="97" width="537.9" height="4" fill="#A86D76"/><rect x="561.9" y="97" width="60.6" height="4" fill="#4A877F"/><rect x="622.6" y="97" width="13.7" height="4" fill="#8B7D47"/><rect x="636.2" y="97" width="13.5" height="4" fill="#6E77A4"/><rect x="649.7" y="97" width="6.3" height="4" fill="#AD6D5D"/><rect x="656" y="97" width="0" height="4" fill="#5E8D6E"/></g>
   <g>
       <g>
       <rect x="61.6" y="124.2" width="19" height="4" rx="2" fill="#A86D76"/>
@@ -44,7 +44,7 @@
       <g>
       <rect x="503.2" y="124.2" width="19" height="4" rx="2" fill="#6E77A4"/>
       <text x="530.2" y="130" class="name">Markdown</text>
-      <text x="503.2" y="147" class="data">556 · 2.1%</text>
+      <text x="503.2" y="147" class="data">560 · 2.1%</text>
     </g>
       <g>
       <rect x="208.8" y="166.2" width="19" height="4" rx="2" fill="#AD6D5D"/>
