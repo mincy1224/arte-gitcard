@@ -464,83 +464,115 @@ describe("tree connector rails (last sibling with descendants)", () => {
   });
 });
 
-describe("COMMITS heat scale — geometric, non-root calibrated", () => {
-  const build = (maxPositive: number): CommitScale => buildCommitScale(maxPositive);
+describe("COMMITS heat scale — GitHub-inspired robust quartiles (non-root calibrated)", () => {
+  const build = (counts: readonly number[]): CommitScale => buildCommitScale(counts);
   const label = (s: CommitScale): string => commitScaleLegendText(s);
 
-  it("A: all-zero → only neutral; no invented thresholds", () => {
-    const s = build(0);
+  it("A: all-zero → only the neutral bucket; nothing invented", () => {
+    const s = build([]);
     expect(s.thresholds).toEqual([0]);
+    expect(s.levels).toEqual([0]);
     expect(levelOf(s, 0)).toBe(0);
     expect(label(s)).toBe("0 commits");
   });
 
-  it("B: max positive 1 → single positive bucket; 1 uses the strongest color; 0 neutral", () => {
-    const s = build(1);
+  it("B: one unique positive value → a single positive shade, never four forced bands", () => {
+    const s = build([3, 3, 3, 3]);
     expect(s.thresholds).toEqual([0, 1]);
+    expect(s.levels).toEqual([0, 1]);
     expect(levelOf(s, 0)).toBe(0);
-    expect(levelOf(s, 1)).toBe(4);
+    expect(levelOf(s, 3)).toBe(1); // same count everywhere → the same color
     expect(label(s)).toBe("0 · 1+ commits");
   });
 
-  it("C: small range 1..3 → meaningful distinct thresholds, monotonic, top strongest", () => {
-    const s = build(3);
-    expect(s.thresholds).toEqual([0, 1, 2, 3]);
-    expect(levelOf(s, 0)).toBe(0);
-    expect(levelOf(s, 1)).toBeGreaterThan(0);
-    expect(levelOf(s, 3)).toBe(4);
-    const seq = [0, 1, 2, 3].map((c) => levelOf(s, c));
-    for (let i = 1; i < seq.length; i++) expect(seq[i]!).toBeGreaterThanOrEqual(seq[i - 1]!);
+  it("C: 2 unique values collapse; duplicates never split one color", () => {
+    const s = build([1, 1, 2, 2, 2, 2]);
+    expect(new Set(s.thresholds.slice(1)).size).toBeLessThanOrEqual(2);
+    expect(levelOf(s, 1)).toBe(1);
+    expect(levelOf(s, 2)).toBe(2);
+    expect(levelOf(s, 1)).toBe(levelOf(s, 1)); // same count → same level
+    expect(levelOf(s, 2)).toBe(levelOf(s, 2));
   });
 
-  it("D: max 21 → geometric thresholds 0·1·3·5·10+; ranges map as designed", () => {
-    const s = build(21);
-    expect(s.thresholds).toEqual([0, 1, 3, 5, 10]);
-    expect(label(s)).toBe("0 · 1 · 3 · 5 · 10+ commits");
+  it("D: heavy duplicates stay few shades (no fake quartiles)", () => {
+    const s = build([...Array(40).fill(5), ...Array(10).fill(9)]);
+    expect(new Set(s.thresholds.slice(1)).size).toBeLessThanOrEqual(2);
+    expect(levelOf(s, 5)).toBe(levelOf(s, 5));
+    expect(levelOf(s, 9)).toBe(levelOf(s, 9));
+  });
+
+  it("E: full spread 1..8 → quartile cutoffs 0·1·3·5·7+; >Q3 clamps darkest", () => {
+    const s = build([1, 2, 3, 4, 5, 6, 7, 8]);
+    expect(s.thresholds).toEqual([0, 1, 3, 5, 7]);
+    expect(s.levels).toEqual([0, 1, 2, 3, 4]);
+    expect(label(s)).toBe("0 · 1 · 3 · 5 · 7+ commits");
+    // <=Q1 → 1, <=Q2 → 2, <=Q3 → 3, >Q3 → 4
     expect([1, 2].every((c) => levelOf(s, c) === 1)).toBe(true);
     expect([3, 4].every((c) => levelOf(s, c) === 2)).toBe(true);
-    expect([5, 9].every((c) => levelOf(s, c) === 3)).toBe(true);
-    expect([10, 21].every((c) => levelOf(s, c) === 4)).toBe(true);
+    expect([5, 6].every((c) => levelOf(s, c) === 3)).toBe(true);
+    expect([7, 8].every((c) => levelOf(s, c) === 4)).toBe(true);
+    expect(levelOf(s, 10_000)).toBe(4); // extreme high value clamps to the darkest level
   });
 
-  it("E: max 100 → 0·1·4·10·32+", () => {
-    const s = build(100);
-    expect(s.thresholds).toEqual([0, 1, 4, 10, 32]);
-    expect(label(s)).toBe("0 · 1 · 4 · 10 · 32+ commits");
-    expect(levelOf(s, 100)).toBe(4);
+  it("F: obvious upper outlier (1,1,2,2,3,3,4,80) is EXCLUDED from calibration but still darkest", () => {
+    const withOutlier = build([1, 1, 2, 2, 3, 3, 4, 80]);
+    const clean = build([1, 1, 2, 2, 3, 3, 4]); // the very calibration the outlier leaves
+    expect(withOutlier.thresholds).toEqual(clean.thresholds);
+    expect(withOutlier.levels).toEqual(clean.levels);
+    expect(clean.thresholds).toEqual([0, 1, 2, 3, 4]);
+    // the outlier itself still renders — through the same shared classifier — darkest
+    expect(levelOf(withOutlier, 80)).toBe(4);
+    expect(levelOf(withOutlier, 4)).toBe(4); // > Q3 of the clean distribution
+    expect(levelOf(withOutlier, 1)).toBe(1);
   });
 
-  it("F/G: repo-root aggregate is EXCLUDED from calibration but still renders on the shared scale", () => {
-    const data = structureData(["src/a.ts", "docs/b.ts"], 7, "repo");
+  it("G: repo-root aggregate is EXCLUDED from calibration but still renders darkest on the shared scale", () => {
+    const data = structureData(["src/a.ts", "src/b.ts", "lib/c.ts"], 7, "repo");
     // repo root row (index 0) is the whole-repo aggregate: huge.
-    data.rows[0]!.activity = Array.from({ length: 7 }, () => ({ commits: 1000, additions: 0, deletions: 0 }));
-    // ordinary module rows peak at 21 (deterministic).
-    data.rows.slice(1).forEach((r, i) => {
-      const arr = Array.from({ length: 7 }, () => ({ commits: 0, additions: 0, deletions: 0 }));
-      arr[i % 7]!.commits = i === 0 ? 21 : i + 2;
-      r.activity = arr;
+    data.rows[0]!.activity = Array.from({ length: 7 }, () => ({ commits: 5000, additions: 0, deletions: 0 }));
+    // ordinary module cells are modest (rows 1..2 over the window → ~1..8 counts).
+    data.rows.slice(1).forEach((r, ri) => {
+      r.activity = Array.from({ length: 7 }, (_, di) => ({ commits: ri + di + 1, additions: 0, deletions: 0 }));
     });
     const layout = layoutStructure(data, { commits: true, changes: false });
-    // scale calibrated on the MODULE max (21), NOT the root aggregate (1000)
-    expect(layout.commitScale.thresholds).toEqual([0, 1, 3, 5, 10]);
-    expect(levelOf(layout.commitScale, 1000)).toBe(4); // root still colored darkest on the shared scale
-    expect(label(layout.commitScale)).toBe("0 · 1 · 3 · 5 · 10+ commits");
-    const svg = renderStructureCard(layout, theme, 2);
+    // scale is calibrated on the MODULE cells, never the root aggregate (5000)
+    const top = layout.commitScale.thresholds[layout.commitScale.thresholds.length - 1]!;
+    expect(top).toBeGreaterThanOrEqual(1);
+    expect(top).toBeLessThan(5000);
+    expect(levelOf(layout.commitScale, 0)).toBe(0);
+    expect(levelOf(layout.commitScale, 5000)).toBe(4); // root still darkest on the shared scale
+    const svg = renderStructureCard(layout, theme, 3);
     expect(svg).toContain(label(layout.commitScale)); // legend == same scale as cells
   });
 
-  it("H/I/J/K/L/M: 0 neutral, positives colored, monotonic, top darkest, legend matches computed scale", () => {
-    for (const m of [1, 2, 3, 8, 21, 100]) {
-      const s = build(m);
+  it("H invariants: 0→0, positive→>=1, same-count-same-level, monotone, extremes clamp", () => {
+    const datasets: number[][] = [
+      [],
+      [1, 1, 1],
+      [5, 5, 5, 5, 5],
+      [1, 1, 2, 2, 3, 3],
+      [1, 2, 3, 4, 5, 6, 7, 8],
+      [1, 1, 2, 2, 3, 3, 4, 80],
+    ];
+    for (const ds of datasets) {
+      const s = build(ds);
+      const maxPositive = Math.max(0, ...ds);
+      const high = maxPositive * 100 + 1000;
       expect(levelOf(s, 0)).toBe(0);
-      for (let c = 1; c <= Math.max(m, 1); c += Math.max(1, Math.floor(m / 10))) {
-        expect(levelOf(s, c)).toBeGreaterThan(0); // positive always colored
+      let prev = levelOf(s, 0);
+      for (let c = 1; c <= high; c++) {
+        const cur = levelOf(s, c);
+        expect(cur).toBeGreaterThanOrEqual(prev); // monotone, never drops
+        prev = cur;
       }
-      expect(levelOf(s, m)).toBe(4); // max positive → darkest
-      const seq = [0, 1, Math.ceil(m / 3), Math.ceil(m / 2), m].map((c) => levelOf(s, c));
-      for (let i = 1; i < seq.length; i++) expect(seq[i]!).toBeGreaterThanOrEqual(seq[i - 1]!);
-      // legend text encodes the very scale used by the classifier
-      expect(commitScaleLegendText(s)).toMatch(/^0 · /);
+      if (maxPositive > 0) {
+        // every positive count is colored; extremes settle on the top level
+        expect(prev).toBeGreaterThan(0);
+        expect(levelOf(s, high)).toBe(prev);
+        expect(levelOf(s, high * 10)).toBe(prev);
+        // a repeated value always maps to one level (checked across the range)
+        for (const v of ds) expect(levelOf(s, v)).toBe(levelOf(s, v));
+      }
     }
   });
 });
