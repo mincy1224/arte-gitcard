@@ -15,7 +15,11 @@ import {
   HEATMAP_GAP,
   CHANGES_SLOT,
   CHANGES_BAR,
+  TREE_FONT,
   DESC_FONT,
+  DESC_FONT_WEIGHT,
+  ROW_FONT_WEIGHT,
+  ROOT_FONT_WEIGHT,
   changeBarHeight,
   changeBarOpacityIndex,
 } from "../layout/structure.js";
@@ -38,7 +42,7 @@ export function renderStructureCard(
   const hasDescriptions = layout.rows.some((r) => r.row.description !== undefined);
   const descFill = mixHex(p.text, p.surface, 0.55);
   const descStyle = hasDescriptions
-    ? `\n    .desc{fill:${descFill};font-size:${DESC_FONT}px;font-weight:400}`
+    ? `\n    .desc{fill:${descFill};font-size:${DESC_FONT}px;font-weight:${DESC_FONT_WEIGHT}}`
     : "";
   const enabledCommits = layout.columns.commits.enabled;
   const enabledChanges = layout.columns.changes.enabled;
@@ -188,8 +192,8 @@ export function renderStructureCard(
     .muted{fill:${p.text_muted}}
     .label{font-size:12px;font-weight:500;letter-spacing:0.08em}
     .small{font-size:11px}
-    .row{font-size:13px;font-weight:550}
-    .root{font-weight:650}
+    .row{font-size:${TREE_FONT}px;font-weight:${ROW_FONT_WEIGHT}}
+    .root{font-weight:${ROOT_FONT_WEIGHT}}
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
     .tree{stroke:${st.tree};stroke-width:1;fill:none}${descStyle}
   </style>
