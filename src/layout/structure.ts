@@ -4,6 +4,15 @@
  * card shrinks. 7/14/30 days never wrap — a larger window only widens the
  * commits/changes columns (single shared rowCenterY per directory). Pure
  * geometry — no colors, no rendering.
+ *
+ * Horizontal model: the tree's directory content (name, and an optional
+ * description) is measured at the SAME font weight the renderer draws it
+ * (.row 550 / .root 650 / .desc 400). The rightmost content edge defines
+ * `textRight`; the metadata region starts one semantic META_GUTTER after it
+ * (`metadataLeft = textRight + META_GUTTER`). dirs/files/share anchors then
+ * derive left-to-right from that single origin, so no name length or depth can
+ * push content under the columns, and every row's metadata stays globally
+ * aligned.
  */
 
 import { estimateTextWidth } from "./measure.js";
@@ -27,10 +36,29 @@ export const HEATMAP_GAP = 8;
 export const CHANGES_SLOT = 20;
 export const CHANGES_BAR = 8;
 export const TREE_FONT = 13;
+/** Directory-name text x inside a row's translate(iconLeft) space (icon width + gap). */
+export const NAME_TEXT_OFFSET = ICON_SIZE + 8;
+/** .row directory-name CSS font-weight (renderer and measurement share this). */
+export const ROW_FONT_WEIGHT = 550;
+/** .root (depth-0 repository/subtree-root row) directory-name font-weight. */
+export const ROOT_FONT_WEIGHT = 650;
+/** .desc directory-description font-weight (regular; display metadata). */
+export const DESC_FONT_WEIGHT = 400;
 /** Optional directory-description font (smaller, regular weight; display metadata). */
 export const DESC_FONT = 11;
-/** Gap between the directory name and its description (and the following column). */
+/** Gap between a directory name and its optional description. */
 export const DESC_GAP = 8;
+/**
+ * Minimum gutter (semantic spacing) between the rightmost directory content
+ * (a name, or a name+description) and the start of the dirs·files·share metadata
+ * region. Semantic layout invariant — at any depth and any name length:
+ *
+ *   countAnchors.dirsSlotLeft − rightmostRowContentEnd ≥ META_GUTTER
+ *
+ * The three metadata columns keep this gutter: dirsSlotLeft is derived as
+ * `textRight + META_GUTTER`, and the dirs/files/share anchors flow from it.
+ */
+export const META_GUTTER = 8;
 /** Gap between a word column (dirs/files/share) and a neighboring "·" separator. */
 export const META_COL_GAP = 10;
 /** Gap between a number's right edge and its label's fixed start x. */
@@ -95,7 +123,7 @@ export interface StructureLayout {
    * and the number right-align edges. Values never move these anchors.
    */
   countAnchors: {
-    /** Left edge of the dirs number slot (also the metadata region start). */
+    /** Left edge of the dirs number slot (== rightmost content + META_GUTTER). */
     dirsSlotLeft: number;
     dirsNumRight: number;
     dirsLabelX: number;
@@ -113,6 +141,24 @@ export interface StructureLayout {
   maxDeletions: number;
 }
 
+/**
+ * Width of a directory name exactly as the renderer draws it: 13px sans at the
+ * row font-weight (550), or the root weight (650) for a depth-0 row. Layout
+ * measures names AND the renderer CSS use the same ROW_FONT_WEIGHT/ROOT_FONT_WEIGHT.
+ */
+export function directoryNameWidth(name: string, depth: number): number {
+  return estimateTextWidth(name, {
+    fontSize: TREE_FONT,
+    mono: false,
+    fontWeight: depth === 0 ? ROOT_FONT_WEIGHT : ROW_FONT_WEIGHT,
+  });
+}
+
+/** Width of a directory description exactly as the renderer draws it (11px, weight 400). */
+function descriptionWidth(text: string): number {
+  return estimateTextWidth(text, { fontSize: DESC_FONT, mono: false, fontWeight: DESC_FONT_WEIGHT });
+}
+
 export function layoutStructure(
   data: StructureData,
   enabled: { commits: boolean; changes: boolean },
@@ -127,16 +173,20 @@ export function layoutStructure(
   const wordText = (n: number, one: string, many: string): string => (n === 1 ? one : many);
   const measure = (t: string): number => estimateTextWidth(t, { fontSize: COUNT_FONT, mono: true });
 
-  let maxTextEnd = 0; // name (+description) right edge, relative to contentLeft
+  // Measure every row's directory content (indent + icon offset + name + optional
+  // description) at the weight it is actually rendered, plus the widest number/
+  // word/share the metadata columns must reserve.
+  let maxTextEnd = 0; // rightmost row content, relative to contentLeft
   let dirsNumMax = 0;
   let dirsWordMax = 0;
   let filesNumMax = 0;
   let filesWordMax = 0;
   let shareMax = 0;
   for (const r of data.rows) {
-    const nameW = estimateTextWidth(r.name, { fontSize: TREE_FONT, mono: false });
-    const descW = r.description ? estimateTextWidth(r.description, { fontSize: DESC_FONT, mono: false }) : 0;
-    const textEnd = r.depth * TREE_INDENT + ICON_SIZE + 8 + nameW + (r.description ? DESC_GAP + descW : 0);
+    const nameW = directoryNameWidth(r.name, r.depth);
+    const descW = r.description ? descriptionWidth(r.description) : 0;
+    const contentEnd = NAME_TEXT_OFFSET + nameW + (r.description ? DESC_GAP + descW : 0);
+    const textEnd = r.depth * TREE_INDENT + contentEnd;
     if (textEnd > maxTextEnd) maxTextEnd = textEnd;
     const dn = measure(numText(r.dirs));
     if (dn > dirsNumMax) dirsNumMax = dn;
@@ -164,10 +214,13 @@ export function layoutStructure(
     shareMax = 0;
   }
 
+  // The metadata region starts exactly one semantic META_GUTTER after the widest
+  // directory content; then each anchor flows left → right from that origin.
   // Slots reserve the widest number/word/share, so multi-digit or plural rows
   // never move the shared global anchors.
-  const regionLeft = contentLeft + maxTextEnd + DESC_GAP; // dirs number slot left
-  const dirsNumRight = regionLeft + dirsNumMax;
+  const textRight = contentLeft + maxTextEnd; // rightmost directory content (global x)
+  const metadataLeft = textRight + META_GUTTER; // dirs number slot left (dirsSlotLeft)
+  const dirsNumRight = metadataLeft + dirsNumMax;
   const dirsLabelX = dirsNumRight + NUM_LABEL_GAP;
   const sep1 = dirsLabelX + dirsWordMax + META_COL_GAP;
   const filesNumRight = sep1 + META_COL_GAP + filesNumMax;
@@ -199,12 +252,14 @@ export function layoutStructure(
   // ---- Rows ----
   const rows: RowLayout[] = data.rows.map((row, i) => {
     const iconLeft = contentLeft + row.depth * TREE_INDENT;
-    const nameLocalStart = ICON_SIZE + 8; // name text x inside the row's translate space
+    // Name and description widths are the SAME weight-aware measures used for the
+    // region size above, so per-row positions match the rightmost-content bound.
+    const nameW = directoryNameWidth(row.name, row.depth);
     const rowLayout: RowLayout = {
       row,
       centerY: FIRST_ROW_Y + i * ROW_HEIGHT,
       iconLeft,
-      nameLeft: iconLeft + nameLocalStart,
+      nameLeft: iconLeft + NAME_TEXT_OFFSET,
       // Same global x for every row (anchor − iconLeft in the row-local space).
       dirsNumRightLocal: dirsNumRight - iconLeft,
       dirsLabelXLocal: dirsLabelX - iconLeft,
@@ -217,8 +272,7 @@ export function layoutStructure(
       countRightLocal: shareRight - iconLeft,
     };
     if (row.description) {
-      const nameW = estimateTextWidth(row.name, { fontSize: TREE_FONT, mono: false });
-      rowLayout.descXLocal = nameLocalStart + nameW + DESC_GAP;
+      rowLayout.descXLocal = NAME_TEXT_OFFSET + nameW + DESC_GAP;
     }
     return rowLayout;
   });
@@ -270,7 +324,7 @@ export function layoutStructure(
     activityDays: days,
     commitScale,
     countAnchors: {
-      dirsSlotLeft: regionLeft,
+      dirsSlotLeft: metadataLeft,
       dirsNumRight,
       dirsLabelX,
       filesNumRight,
