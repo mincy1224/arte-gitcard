@@ -172,10 +172,12 @@ export function renderStructureCard(
   // ---- Legends + footer ----
   const commitLegend = enabledCommits
     ? (() => {
-        const n = layout.commitScale.thresholds.length;
-        const swatches = Array.from({ length: n }, (_, i) =>
-          `<rect x="${r1(i * 14)}" y="-5" width="10" height="10" rx="${r1(heatRadius)}" fill="${st.commitsColors[i]}" fill-opacity="${st.commitsIntensity[i]}" stroke="${st.commitsBorder}" stroke-width="1"/>`,
-        ).join("");
+        const scale = layout.commitScale;
+        const n = scale.thresholds.length;
+        const swatches = Array.from({ length: n }, (_, i) => {
+          const level = scale.levels[i]!; // chips may skip unused palette shades
+          return `<rect x="${r1(i * 14)}" y="-5" width="10" height="10" rx="${r1(heatRadius)}" fill="${st.commitsColors[level]}" fill-opacity="${st.commitsIntensity[level]}" stroke="${st.commitsBorder}" stroke-width="1"/>`;
+        }).join("");
         return `<g transform="translate(${r1(layout.commitLegend.left)} ${r1(layout.commitLegend.y)})">${swatches}<text x="${r1((n - 1) * 14 + 20)}" y="2.5" class="small muted">${escapeXml(commitScaleLegendText(layout.commitScale))}</text></g>`;
       })()
     : "";

@@ -282,16 +282,17 @@ export function layoutStructure(
   const cardHeight = legendY + 34;
 
   // Legends center on their column by measured width (SPEC §5). The commit scale
-  // is card-global and calibrated on NON-ROOT cells only, so the repo-root
-  // aggregate row does not distort real directory comparisons.
-  let maxNonRootPositive = 0;
+  // is card-global and calibrated on EVERY positive NON-ROOT cell in the window
+  // (the repo-root row is a whole-repository aggregate; its counts must not
+  // shift the quartiles, but it still classifies on the same shared scale).
+  const positiveNonRootCounts: number[] = [];
   for (const r of data.rows) {
     if (r.repoRel === ".") continue;
     for (const d of r.activity) {
-      if (d.commits > maxNonRootPositive) maxNonRootPositive = d.commits;
+      if (d.commits > 0) positiveNonRootCounts.push(d.commits);
     }
   }
-  const commitScale = buildCommitScale(maxNonRootPositive);
+  const commitScale = buildCommitScale(positiveNonRootCounts);
   const commitLegendTextW = estimateTextWidth(commitScaleLegendText(commitScale), { fontSize: 11, mono: false });
   const swatchCount = commitScale.thresholds.length;
   const commitLegendWidth = (swatchCount - 1) * 14 + 20 + commitLegendTextW;
