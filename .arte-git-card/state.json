@@ -10,7 +10,7 @@
     {
       "path": ".arte-git-card/ci/main.cjs",
       "kind": "ci-runtime",
-      "sha256": "75ce9f38f3e80d74a52441c1cafc11bae7fc86702916d671d2b011bf6d35f3a5"
+      "sha256": "0ec0bdc9861cb052597516a1fe39c19b6972fe943db188de425ed186183de166"
     },
     {
       "path": ".arte-git-card/themes/arte-theme.yml",
@@ -30,7 +30,7 @@
     {
       "path": ".github/workflows/arte-gitcard.yml",
       "kind": "workflow",
-      "sha256": "af56e5c894cb52d2aeae3a1d5a15aaa8c356e59cceb9dc638497cacb3c37a098"
+      "sha256": "6d6660b43a264016ed9a66c48780c0a3347e3e78a22f53236db9952d26a123ab"
     }
   ],
   "outputRoots": [

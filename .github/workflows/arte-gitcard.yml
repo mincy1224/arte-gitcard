@@ -25,5 +25,5 @@ jobs:
         run: |
           set -e
           test "$(sha256sum .arte-git-card/ci/action.yml | cut -d' ' -f1)" = "f858e8c13b95b98933c476212780195ef32a63162035104d2dd52bc010b9d08e" || { echo "arte-git-card/ci/action.yml integrity mismatch (expected f858e8c13b95b98933c476212780195ef32a63162035104d2dd52bc010b9d08e); run arte-gitcard github sync"; exit 1; }
-          test "$(sha256sum .arte-git-card/ci/main.cjs | cut -d' ' -f1)" = "75ce9f38f3e80d74a52441c1cafc11bae7fc86702916d671d2b011bf6d35f3a5" || { echo "arte-git-card/ci/main.cjs integrity mismatch (expected 75ce9f38f3e80d74a52441c1cafc11bae7fc86702916d671d2b011bf6d35f3a5); run arte-gitcard github sync"; exit 1; }
+          test "$(sha256sum .arte-git-card/ci/main.cjs | cut -d' ' -f1)" = "0ec0bdc9861cb052597516a1fe39c19b6972fe943db188de425ed186183de166" || { echo "arte-git-card/ci/main.cjs integrity mismatch (expected 0ec0bdc9861cb052597516a1fe39c19b6972fe943db188de425ed186183de166); run arte-gitcard github sync"; exit 1; }
       - uses: ./.arte-git-card/ci

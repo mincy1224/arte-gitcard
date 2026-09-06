@@ -12783,8 +12783,17 @@ function buildCodebaseCard(data, includeComments, dataColors) {
 var COMBINING_START = 768;
 var COMBINING_END = 879;
 var WIDE_START = 11904;
+var REGULAR_WEIGHT = 400;
+var BOLD_WEIGHT = 700;
+var MAX_WEIGHT_GROWTH = 0.12;
+function weightScale(fontWeight) {
+  if (fontWeight <= REGULAR_WEIGHT) return 1;
+  const t = Math.min(1, (fontWeight - REGULAR_WEIGHT) / (BOLD_WEIGHT - REGULAR_WEIGHT));
+  return 1 + t * MAX_WEIGHT_GROWTH;
+}
 function estimateTextWidth(text, opts) {
   const em = opts.fontSize;
+  const scale = weightScale(opts.fontWeight ?? REGULAR_WEIGHT);
   let width = 0;
   for (const ch of text) {
     const cp = ch.codePointAt(0) ?? 0;
@@ -12792,13 +12801,13 @@ function estimateTextWidth(text, opts) {
     if (cp >= WIDE_START) {
       width += em;
     } else if (opts.mono) {
-      width += 0.6 * em;
+      width += 0.6 * em * scale;
     } else if (ch === " " || ch === ".") {
-      width += 0.28 * em;
+      width += 0.28 * em * scale;
     } else if (ch === "\xB7" || ch === "," || ch === "'" || ch === "(" || ch === ")") {
-      width += 0.3 * em;
+      width += 0.3 * em * scale;
     } else {
-      width += 0.55 * em;
+      width += 0.55 * em * scale;
     }
   }
   return width + (opts.mono ? 0 : 2);
@@ -13293,30 +13302,51 @@ function resolveActivityHeader(days, startDate) {
 }
 
 // src/structure/commit-scale.ts
-var ceilPow = (base, exp) => Math.ceil(Math.pow(base, exp));
-function buildCommitScale(maxPositive) {
-  if (!(maxPositive >= 1) || !Number.isFinite(maxPositive)) return { thresholds: [0] };
-  const M = Math.floor(maxPositive);
-  if (M === 0) return { thresholds: [0] };
-  const raw = [1, ceilPow(M, 0.25), ceilPow(M, 0.5), ceilPow(M, 0.75)];
-  const pos = [];
-  for (const v of raw) {
-    const n = Math.max(1, Math.min(M, Math.floor(v)));
-    if (n > (pos[pos.length - 1] ?? 0)) pos.push(n);
+function quantileAt(sorted, p) {
+  const h = (sorted.length - 1) * p;
+  const lo = Math.floor(h);
+  const hi = Math.ceil(h);
+  if (lo === hi) return sorted[lo];
+  return sorted[lo] + (h - lo) * (sorted[hi] - sorted[lo]);
+}
+var above = (q) => Math.floor(q) + 1;
+function buildCommitScale(positiveNonRootCounts) {
+  const positives = positiveNonRootCounts.filter((v) => v > 0).sort((a, b) => a - b);
+  if (positives.length === 0) return { thresholds: [0], levels: [0] };
+  const q1Full = quantileAt(positives, 0.25);
+  const q3Full = quantileAt(positives, 0.75);
+  const upperFence = q3Full + 1.5 * (q3Full - q1Full);
+  const calibration = positives.filter((v) => v <= upperFence);
+  const source = calibration.length > 0 ? calibration : positives;
+  const q1 = quantileAt(source, 0.25);
+  const q2 = quantileAt(source, 0.5);
+  const q3 = quantileAt(source, 0.75);
+  const minima = [1, above(q1), above(q2), above(q3)];
+  const thresholds = [0];
+  const levels = [0];
+  for (let level = 1; level <= 4; level++) {
+    const t = minima[level - 1];
+    const last = thresholds[thresholds.length - 1];
+    if (t > last) {
+      thresholds.push(t);
+      levels.push(level);
+    } else {
+      levels[levels.length - 1] = level;
+    }
   }
-  if (pos.length === 0) pos.push(1);
-  return { thresholds: [0, ...pos] };
+  const maxPositive = positives[positives.length - 1];
+  while (thresholds.length > 1 && thresholds[thresholds.length - 1] > maxPositive) {
+    thresholds.pop();
+    levels.pop();
+  }
+  return { thresholds, levels };
 }
 function levelOf(scale, count) {
   if (count <= 0) return 0;
-  const k = scale.thresholds.length - 1;
-  if (k === 0) return 0;
-  let idx = 0;
-  for (let i = 1; i <= k; i++) {
-    if (count >= scale.thresholds[i]) idx = i;
+  for (let i = scale.thresholds.length - 1; i >= 0; i--) {
+    if (count >= scale.thresholds[i]) return scale.levels[i];
   }
-  if (idx === 0) idx = 1;
-  return Math.min(4, idx + (4 - k));
+  return 0;
 }
 function commitScaleLegendText(scale) {
   if (scale.thresholds.length === 1) return "0 commits";
@@ -13341,11 +13371,26 @@ var HEATMAP_GAP = 8;
 var CHANGES_SLOT = 20;
 var CHANGES_BAR = 8;
 var TREE_FONT = 13;
+var NAME_TEXT_OFFSET = ICON_SIZE + 8;
+var ROW_FONT_WEIGHT = 550;
+var ROOT_FONT_WEIGHT = 650;
+var DESC_FONT_WEIGHT = 400;
 var DESC_FONT = 11;
 var DESC_GAP = 8;
+var META_GUTTER = 8;
 var META_COL_GAP = 10;
 var NUM_LABEL_GAP = 4;
 var COUNT_FONT = 11;
+function directoryNameWidth(name, depth) {
+  return estimateTextWidth(name, {
+    fontSize: TREE_FONT,
+    mono: false,
+    fontWeight: depth === 0 ? ROOT_FONT_WEIGHT : ROW_FONT_WEIGHT
+  });
+}
+function descriptionWidth(text) {
+  return estimateTextWidth(text, { fontSize: DESC_FONT, mono: false, fontWeight: DESC_FONT_WEIGHT });
+}
 function layoutStructure(data, enabled) {
   const contentLeft = PAD_X;
   const rowCount = data.rows.length;
@@ -13360,9 +13405,10 @@ function layoutStructure(data, enabled) {
   let filesWordMax = 0;
   let shareMax = 0;
   for (const r of data.rows) {
-    const nameW = estimateTextWidth(r.name, { fontSize: TREE_FONT, mono: false });
-    const descW = r.description ? estimateTextWidth(r.description, { fontSize: DESC_FONT, mono: false }) : 0;
-    const textEnd = r.depth * TREE_INDENT + ICON_SIZE + 8 + nameW + (r.description ? DESC_GAP + descW : 0);
+    const nameW = directoryNameWidth(r.name, r.depth);
+    const descW = r.description ? descriptionWidth(r.description) : 0;
+    const contentEnd = NAME_TEXT_OFFSET + nameW + (r.description ? DESC_GAP + descW : 0);
+    const textEnd = r.depth * TREE_INDENT + contentEnd;
     if (textEnd > maxTextEnd) maxTextEnd = textEnd;
     const dn = measure(numText(r.dirs));
     if (dn > dirsNumMax) dirsNumMax = dn;
@@ -13387,8 +13433,9 @@ function layoutStructure(data, enabled) {
     filesWordMax = 0;
     shareMax = 0;
   }
-  const regionLeft = contentLeft + maxTextEnd + DESC_GAP;
-  const dirsNumRight = regionLeft + dirsNumMax;
+  const textRight = contentLeft + maxTextEnd;
+  const metadataLeft = textRight + META_GUTTER;
+  const dirsNumRight = metadataLeft + dirsNumMax;
   const dirsLabelX = dirsNumRight + NUM_LABEL_GAP;
   const sep1 = dirsLabelX + dirsWordMax + META_COL_GAP;
   const filesNumRight = sep1 + META_COL_GAP + filesNumMax;
@@ -13414,12 +13461,12 @@ function layoutStructure(data, enabled) {
   const changes = { enabled: enabled.changes, left: changesLeft, width: changesWidth, centerX: changesLeft + changesWidth / 2 };
   const rows = data.rows.map((row, i) => {
     const iconLeft = contentLeft + row.depth * TREE_INDENT;
-    const nameLocalStart = ICON_SIZE + 8;
+    const nameW = directoryNameWidth(row.name, row.depth);
     const rowLayout = {
       row,
       centerY: FIRST_ROW_Y + i * ROW_HEIGHT,
       iconLeft,
-      nameLeft: iconLeft + nameLocalStart,
+      nameLeft: iconLeft + NAME_TEXT_OFFSET,
       // Same global x for every row (anchor − iconLeft in the row-local space).
       dirsNumRightLocal: dirsNumRight - iconLeft,
       dirsLabelXLocal: dirsLabelX - iconLeft,
@@ -13432,22 +13479,21 @@ function layoutStructure(data, enabled) {
       countRightLocal: shareRight - iconLeft
     };
     if (row.description) {
-      const nameW = estimateTextWidth(row.name, { fontSize: TREE_FONT, mono: false });
-      rowLayout.descXLocal = nameLocalStart + nameW + DESC_GAP;
+      rowLayout.descXLocal = NAME_TEXT_OFFSET + nameW + DESC_GAP;
     }
     return rowLayout;
   });
   const lastRowCenter = rowCount > 0 ? FIRST_ROW_Y + (rowCount - 1) * ROW_HEIGHT : FIRST_ROW_Y;
   const legendY = lastRowCenter + ROW_HEIGHT / 2 + 24;
   const cardHeight = legendY + 34;
-  let maxNonRootPositive = 0;
+  const positiveNonRootCounts = [];
   for (const r of data.rows) {
     if (r.repoRel === ".") continue;
     for (const d of r.activity) {
-      if (d.commits > maxNonRootPositive) maxNonRootPositive = d.commits;
+      if (d.commits > 0) positiveNonRootCounts.push(d.commits);
     }
   }
-  const commitScale = buildCommitScale(maxNonRootPositive);
+  const commitScale = buildCommitScale(positiveNonRootCounts);
   const commitLegendTextW = estimateTextWidth(commitScaleLegendText(commitScale), { fontSize: 11, mono: false });
   const swatchCount = commitScale.thresholds.length;
   const commitLegendWidth = (swatchCount - 1) * 14 + 20 + commitLegendTextW;
@@ -13478,7 +13524,7 @@ function layoutStructure(data, enabled) {
     activityDays: days,
     commitScale,
     countAnchors: {
-      dirsSlotLeft: regionLeft,
+      dirsSlotLeft: metadataLeft,
       dirsNumRight,
       dirsLabelX,
       filesNumRight,
@@ -13583,7 +13629,7 @@ function renderStructureCard(layout, theme, sourceFiles) {
   const hasDescriptions = layout.rows.some((r) => r.row.description !== void 0);
   const descFill = mixHex(p.text, p.surface, 0.55);
   const descStyle = hasDescriptions ? `
-    .desc{fill:${descFill};font-size:${DESC_FONT}px;font-weight:400}` : "";
+    .desc{fill:${descFill};font-size:${DESC_FONT}px;font-weight:${DESC_FONT_WEIGHT}}` : "";
   const enabledCommits = layout.columns.commits.enabled;
   const enabledChanges = layout.columns.changes.enabled;
   const cardRadius = theme.style.card.radius;
@@ -13658,11 +13704,12 @@ function renderStructureCard(layout, theme, sourceFiles) {
     return bars;
   }).join("") : "";
   const commitLegend = enabledCommits ? (() => {
-    const n = layout.commitScale.thresholds.length;
-    const swatches = Array.from(
-      { length: n },
-      (_, i) => `<rect x="${r1(i * 14)}" y="-5" width="10" height="10" rx="${r1(heatRadius)}" fill="${st.commitsColors[i]}" fill-opacity="${st.commitsIntensity[i]}" stroke="${st.commitsBorder}" stroke-width="1"/>`
-    ).join("");
+    const scale = layout.commitScale;
+    const n = scale.thresholds.length;
+    const swatches = Array.from({ length: n }, (_, i) => {
+      const level = scale.levels[i];
+      return `<rect x="${r1(i * 14)}" y="-5" width="10" height="10" rx="${r1(heatRadius)}" fill="${st.commitsColors[level]}" fill-opacity="${st.commitsIntensity[level]}" stroke="${st.commitsBorder}" stroke-width="1"/>`;
+    }).join("");
     return `<g transform="translate(${r1(layout.commitLegend.left)} ${r1(layout.commitLegend.y)})">${swatches}<text x="${r1((n - 1) * 14 + 20)}" y="2.5" class="small muted">${escapeXml(commitScaleLegendText(layout.commitScale))}</text></g>`;
   })() : "";
   const changesLegend = enabledChanges ? `<g transform="translate(${r1(layout.changesLegend.left)} ${r1(layout.changesLegend.y)})"><rect x="0" y="-5" width="10" height="10" rx="${r1(heatRadius)}" fill="${st.changesAdded}"/><text x="16" y="2.5" class="small muted">added</text><rect x="58" y="-5" width="10" height="10" rx="${r1(heatRadius)}" fill="${st.changesDeleted}"/><text x="74" y="2.5" class="small muted">deleted</text></g>` : "";
@@ -13675,8 +13722,8 @@ function renderStructureCard(layout, theme, sourceFiles) {
     .muted{fill:${p.text_muted}}
     .label{font-size:12px;font-weight:500;letter-spacing:0.08em}
     .small{font-size:11px}
-    .row{font-size:13px;font-weight:550}
-    .root{font-weight:650}
+    .row{font-size:${TREE_FONT}px;font-weight:${ROW_FONT_WEIGHT}}
+    .root{font-weight:${ROOT_FONT_WEIGHT}}
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
     .tree{stroke:${st.tree};stroke-width:1;fill:none}${descStyle}
   </style>
